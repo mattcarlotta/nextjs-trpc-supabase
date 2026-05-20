@@ -15,10 +15,10 @@ export function PostSkeleton() {
                         <p>Back to posts</p>
                     </Link>
                     <div className="space-y-4">
-                        <div className="h-9 w-3/4 animate-pulse rounded bg-neutral-200 dark:bg-neutral-500" />
+                        <div className="h-9 w-full animate-pulse rounded bg-neutral-200 dark:bg-neutral-500" />
                         <div className="space-y-2">
                             <div className="h-4 w-full animate-pulse rounded bg-neutral-200 dark:bg-neutral-500" />
-                            <div className="h-4 w-5/6 animate-pulse rounded bg-neutral-200 dark:bg-neutral-500" />
+                            <div className="h-4 w-full animate-pulse rounded bg-neutral-200 dark:bg-neutral-500" />
                         </div>
                     </div>
                 </main>

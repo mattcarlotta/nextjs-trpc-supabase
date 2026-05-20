@@ -17,6 +17,7 @@ export const appRouter = createTRPCRouter({
 
     getPost: baseProcedure.input(z.object({ id: z.string() })).query(({ input }) => {
         const post = POSTS.find((p) => p.id === input.id);
+
         if (!post) {
             return { post: null, error: `Post ${input.id} may have been deleted or does not exist.` };
             // throw new TRPCError({
