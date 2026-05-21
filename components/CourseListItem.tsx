@@ -1,18 +1,11 @@
-"use client";
-
 import type { CourseListing } from "~/lib/zod/courses";
-import { useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import SVGVideoPlayerIcon from "~/icons/SVGVideoPlayerIcon";
 import { toUSDCurrency } from "~/lib/currency";
-import { useTRPC } from "~/lib/trpc/client";
 import { cn } from "~/lib/tw";
 import { toCustomLocaleString } from "~/utils/date";
 
 export default function CourseListItem({ course }: { course: CourseListing }) {
-    const trpc = useTRPC();
-    const queryClient = useQueryClient();
-
     return (
         <li
             className={cn(
@@ -25,7 +18,6 @@ export default function CourseListItem({ course }: { course: CourseListing }) {
                 <Link
                     aria-label={`View ${course.title} by ${course.author.first_name} ${course.author.last_name} detail page`}
                     href={`/course/${course.url}/`}
-                    onMouseEnter={() => queryClient.prefetchQuery(trpc.getCourse.queryOptions({ url: course.url }))}
                 >
                     <div
                         aria-hidden
