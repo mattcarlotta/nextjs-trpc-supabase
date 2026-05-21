@@ -1,23 +1,11 @@
-"use client";
-
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { useTRPC } from "~/lib/trpc/client";
+import type { CourseListing } from "~/lib/zod/courses";
 import { cn } from "~/lib/tw";
 import { timeSince, toCustomLocaleString } from "~/utils/date";
 import BackToCoursesLink from "./BackToCoursesLink";
-import { CourseNotFound } from "./CourseNotFound";
+import EditCourseLink from "./EditCourseLink";
 import Main from "./Main";
 
-export function CourseDetail({ courseURL }: { courseURL: string }) {
-    const trpc = useTRPC();
-    const {
-        data: { course, error }
-    } = useSuspenseQuery(trpc.getCourse.queryOptions({ url: courseURL }));
-
-    if (error) {
-        return <CourseNotFound error={error} />;
-    }
-
+export function CourseDetail({ course }: { course: CourseListing }) {
     return (
         <div className="flex items-center justify-center pt-20">
             <div
@@ -26,9 +14,12 @@ export function CourseDetail({ courseURL }: { courseURL: string }) {
                     "dark:divide-neutral-800 dark:border-neutral-800 dark:bg-neutral-900"
                 )}
             >
-                <Main>
-                    <BackToCoursesLink />
-                    <article className="space-y-4">
+                <Main className="space-y-4">
+                    <div className="flex w-full items-center justify-between">
+                        <BackToCoursesLink />
+                        <EditCourseLink courseURL={course.url} />
+                    </div>
+                    <article className="w-full space-y-4 px-4">
                         <div className="space-y-1">
                             <header className="flex items-center space-x-2" id="course">
                                 <h1 data-testid="course-title" className="text-3xl font-semibold md:text-5xl">

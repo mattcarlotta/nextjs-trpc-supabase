@@ -37,3 +37,12 @@ export type CourseListing = z.infer<typeof courseListing>;
 
 export const courseListings = z.array(courseListing).nullable();
 export type CourseListings = z.infer<typeof courseListings>;
+
+export const updateCourseListing = courseListing.pick({
+    title: true,
+    url: true,
+    description: true,
+    price: true,
+    sale_price: true
+});
+export type UpdateCourseListing = z.infer<typeof updateCourseListing>;

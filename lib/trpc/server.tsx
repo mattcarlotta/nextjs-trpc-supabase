@@ -40,3 +40,4 @@ export function prefetchInfinite<TQueryFnData, TError, TData, TQueryKey extends 
 }
 
 export const caller = appRouter.createCaller(async () => createTRPCContext({ headers: await headers() }));
+export const staticCaller = appRouter.createCaller(() => createTRPCContext({ headers: new Headers() }));

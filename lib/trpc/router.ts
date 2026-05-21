@@ -1,6 +1,7 @@
+import { revalidateTag } from "next/cache";
 import { z } from "zod";
 import { supabaseAdmin } from "../supabase/server";
-import { active_published_statuses, courseListing, courseListings, url } from "../zod/courses";
+import { active_published_statuses, courseListing, courseListings, updateCourseListing, url } from "../zod/courses";
 import { baseProcedure, createTRPCRouter } from "./init";
 
 export const appRouter = createTRPCRouter({
@@ -10,7 +11,8 @@ export const appRouter = createTRPCRouter({
             .select(
                 "id, title, description,  price, sale_price, url, status, created_at, updated_at, author:users(id, first_name, last_name) "
             )
-            .in("status", active_published_statuses);
+            .in("status", active_published_statuses)
+            .order("created_at", { ascending: true });
 
         if (error) {
             console.error(error.message);
@@ -19,7 +21,6 @@ export const appRouter = createTRPCRouter({
 
         return data;
     }),
-
     getCourse: baseProcedure
         .output(z.object({ course: courseListing.nullable(), error: z.string().nullable() }))
         .input(z.object({ url }))
@@ -39,6 +40,33 @@ export const appRouter = createTRPCRouter({
             }
 
             return { course, error: null };
+        }),
+    updateCourse: baseProcedure
+        .output(z.object({ error: z.string().nullable() }))
+        .input(updateCourseListing)
+        .mutation(async ({ input }) => {
+            const updatedCourseDetails = {
+                title: input.title,
+                description: input.description,
+                price: Math.round(input.price * 100),
+                sale_price: typeof input.sale_price === "number" ? Math.round(input.sale_price * 100) : null
+            };
+
+            const { error } = await supabaseAdmin
+                .from("courses")
+                .update(updatedCourseDetails)
+                .eq("url", input.url)
+                .single();
+
+            if (error) {
+                console.error(error.message);
+                return { error: "Course either doesn't exist or was removed." };
+            }
+
+            revalidateTag(`/course/${input.url}/`, "max");
+            revalidateTag(`/courses/`, "max");
+
+            return { error: null };
         })
 });
 
