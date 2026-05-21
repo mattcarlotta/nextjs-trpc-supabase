@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { cacheLife, cacheTag } from "next/cache";
 import { notFound } from "next/navigation";
 import { CourseDetail } from "~/components/CourseDetail";
@@ -15,6 +16,47 @@ export async function generateStaticParams() {
     return data.map(({ url }) => ({
         courseURL: url
     }));
+}
+
+type Props = {
+    params: Promise<{ courseURL: string }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    "use cache";
+
+    const { courseURL } = await params;
+    cacheLife("minutes");
+    cacheTag(`/course/${courseURL}/`);
+
+    const { data } = await supabaseAdmin
+        .from("courses")
+        .select("title, description, created_at, published_at, updated_at, author:author_id(first_name, last_name)")
+        .eq("url", courseURL)
+        .single();
+
+    if (!data) {
+        return {};
+    }
+
+    const title = `${data.title} by ${data.author.first_name} ${data.author.last_name}`.trim().replace(/[\r\n]+/g, "");
+
+    const description = String(data.description)
+        .trim()
+        .replace(/[\r\n]+/g, "");
+
+    return {
+        title,
+        description,
+        openGraph: {
+            title,
+            description,
+            type: "article",
+            publishedTime: new Date(data.created_at).toISOString(),
+            modifiedTime: data.updated_at ? new Date(data.updated_at).toISOString() : "",
+            authors: `${data.author.first_name} ${data.author.last_name}`
+        }
+    };
 }
 
 export default async function CourseDetailPage({ params }: PageProps<"/course/[courseURL]">) {

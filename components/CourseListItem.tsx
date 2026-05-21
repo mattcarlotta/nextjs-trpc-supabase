@@ -6,6 +6,10 @@ import { cn } from "~/lib/tw";
 import { toCustomLocaleString } from "~/utils/date";
 
 export default function CourseListItem({ course }: { course: CourseListing }) {
+    const courseOnSale = course.sale_price !== null;
+    const salePrice = course.sale_price || 0;
+    const freeCourse = (courseOnSale && salePrice === 0) || course.price === 0;
+
     return (
         <li
             className={cn(
@@ -42,7 +46,9 @@ export default function CourseListItem({ course }: { course: CourseListing }) {
                                 by {course.author.first_name} {course.author.last_name}
                             </p>
                         </div>
-                        <p className="p3 line-clamp-3">{course.description}</p>
+                        <p title={course.description} className="p3 line-clamp-3">
+                            {course.description}
+                        </p>
                     </div>
                     <div
                         aria-hidden
@@ -52,7 +58,23 @@ export default function CourseListItem({ course }: { course: CourseListing }) {
                             "group-focus-within:border-blue-500 dark:border-neutral-700"
                         )}
                     >
-                        <p>{course.price === 0 ? "Free" : toUSDCurrency(course.price / 100)}</p>
+                        <p className="flex w-full items-center justify-center space-x-2 font-bold">
+                            {courseOnSale && (
+                                <span>{freeCourse ? "Free Course!" : toUSDCurrency(salePrice / 100)}</span>
+                            )}
+                            {course.price > 0 ? (
+                                <span
+                                    className={cn(
+                                        courseOnSale &&
+                                            "text-sm text-gray-100 line-through group-focus-within:text-gray-300 group-hover:text-gray-300 dark:text-neutral-300"
+                                    )}
+                                >
+                                    {toUSDCurrency(course.price / 100)}
+                                </span>
+                            ) : (
+                                <span>Free Course!</span>
+                            )}
+                        </p>
                     </div>
                 </Link>
             </section>

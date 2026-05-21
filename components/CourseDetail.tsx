@@ -2,6 +2,7 @@ import type { CourseListing } from "~/lib/zod/courses";
 import { cn } from "~/lib/tw";
 import { timeSince, toCustomLocaleString } from "~/utils/date";
 import BackToCoursesLink from "./BackToCoursesLink";
+import CourseCTAButton from "./CourseCTAButton";
 import EditCourseLink from "./EditCourseLink";
 import Main from "./Main";
 
@@ -38,12 +39,12 @@ export function CourseDetail({ course }: { course: CourseListing }) {
                             className="group flex max-w-max items-center space-x-2"
                             href={`/user/${course?.author?.id}/`}
                         >
-                            <p className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-xl text-white uppercase">
+                            <p className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-lg text-white uppercase">
                                 {course?.author?.first_name?.charAt(0)}
                                 {course?.author?.last_name?.charAt(0)}
                             </p>
                             <div className="flex flex-col space-x-0.5">
-                                <p className="text-blue-500 group-hover:underline dark:text-blue-400">
+                                <p className="text-neutral-600 group-hover:underline dark:text-neutral-300">
                                     {course?.author?.first_name} {course?.author?.last_name}
                                 </p>
                                 {course?.created_at && (
@@ -68,6 +69,11 @@ export function CourseDetail({ course }: { course: CourseListing }) {
                             </div>
                         </a>
                         <p className="text-neutral-700 dark:text-neutral-300">{course?.description}</p>
+                        <CourseCTAButton
+                            courseId={course?.id}
+                            coursePrice={course?.price}
+                            courseSalePrice={course?.sale_price}
+                        />
                     </article>
                 </Main>
             </div>

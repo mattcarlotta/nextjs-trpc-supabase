@@ -7,9 +7,9 @@ import Main from "~/components/Main";
 import { staticCaller } from "~/lib/trpc/server";
 
 export const metadata: Metadata = {
-    title: "Online Courses",
+    title: "Online Courses | Company",
     openGraph: {
-        title: "Online Courses"
+        title: "Online Courses | Company"
     }
 };
 

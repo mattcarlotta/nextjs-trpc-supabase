@@ -14,7 +14,7 @@ import { SwitchToggle } from "./forms/SwitchToggle";
 import { TextAreaInput } from "./forms/TextAreaInput";
 
 function CourseEditor({ course }: { course: CourseListing }) {
-    const [showSalePriceField, setShowSalePriceField] = useState(false);
+    const [showSalePriceField, setShowSalePriceField] = useState(typeof course.sale_price === "number");
     const { updateCourse, isUpdatingCourse } = useCourseEditor({ courseURL: course.url });
 
     const methods = useForm<UpdateCourseListing>({
@@ -70,7 +70,7 @@ function CourseEditor({ course }: { course: CourseListing }) {
                 <form onSubmit={methods.handleSubmit(onSubmit)} className="grid gap-y-4 md:px-4">
                     <div className="space-y-1">
                         <h1 data-testid="page-title" className="text-2xl font-bold lg:text-4xl">
-                            Update Course Form
+                            Course Editor
                         </h1>
                         <div className="flex items-center space-x-1 text-xs">
                             <sub className="flex w-3 shrink-0 items-center justify-center text-[1.25rem]">*</sub>

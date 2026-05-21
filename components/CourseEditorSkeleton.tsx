@@ -28,7 +28,7 @@ export default function CourseEditorSkeleton() {
                         <div className="space-y-1">
                             <header>
                                 <h1 data-testid="page-title" className="text-2xl font-bold lg:text-4xl">
-                                    Update Course Form
+                                    Course Editor
                                 </h1>
                             </header>
                             <div className="flex items-center space-x-1 text-xs">
