@@ -67,7 +67,7 @@ function CourseEditor({ course }: { course: CourseListing }) {
                 <p>Go back to course</p>
             </Link>
             <FormProvider {...methods}>
-                <form onSubmit={methods.handleSubmit(onSubmit)} className="grid gap-y-4 px-4">
+                <form onSubmit={methods.handleSubmit(onSubmit)} className="grid gap-y-4 md:px-4">
                     <div className="space-y-1">
                         <h1 data-testid="page-title" className="text-2xl font-bold lg:text-4xl">
                             Update Course Form
@@ -153,10 +153,10 @@ export default function CourseEditorForm({ courseURL }: { courseURL: string }) {
     }
 
     return (
-        <main className="flex items-center justify-center pt-20">
+        <main className="flex items-center justify-center md:pt-20">
             <div
                 className={cn(
-                    "w-full max-w-220 divide-y divide-neutral-200 rounded-xl border border-neutral-300 bg-white shadow-lg",
+                    "w-full max-w-220 divide-y divide-neutral-200 border border-neutral-300 bg-white shadow-lg md:rounded-xl",
                     "dark:divide-neutral-800 dark:border-neutral-800 dark:bg-neutral-900"
                 )}
             >

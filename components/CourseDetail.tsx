@@ -7,10 +7,10 @@ import Main from "./Main";
 
 export function CourseDetail({ course }: { course: CourseListing }) {
     return (
-        <div className="flex items-center justify-center pt-20">
+        <div className="flex items-center justify-center md:pt-20">
             <div
                 className={cn(
-                    "w-full max-w-220 divide-y divide-neutral-200 rounded-xl border border-neutral-300 bg-white shadow-lg",
+                    "w-full max-w-220 divide-y divide-neutral-200 border border-neutral-300 bg-white shadow-lg md:rounded-xl",
                     "dark:divide-neutral-800 dark:border-neutral-800 dark:bg-neutral-900"
                 )}
             >
@@ -19,14 +19,14 @@ export function CourseDetail({ course }: { course: CourseListing }) {
                         <BackToCoursesLink />
                         <EditCourseLink courseURL={course.url} />
                     </div>
-                    <article className="w-full space-y-4 px-4">
+                    <article className="w-full space-y-4 md:px-4">
                         <div className="space-y-1">
                             <header className="flex items-center space-x-2" id="course">
                                 <h1 data-testid="course-title" className="text-3xl font-semibold md:text-5xl">
                                     {course?.title}
                                 </h1>
                             </header>
-                            <div className="flex flex-col space-y-2 md:flex-row md:items-center md:space-y-0 md:space-x-2">
+                            <div className="flex items-center space-x-2">
                                 <p>Share</p>
                                 <p>QR Code</p>
                             </div>
