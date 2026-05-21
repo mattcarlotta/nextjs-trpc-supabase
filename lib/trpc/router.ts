@@ -1,33 +1,45 @@
-// import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+import { supabaseAdmin } from "../supabase/server";
+import { active_published_statuses, courseListing, courseListings, url } from "../zod/courses";
 import { baseProcedure, createTRPCRouter } from "./init";
 
-const POSTS = [
-    { id: "1", title: "Hello tRPC", body: "First post" },
-    { id: "2", title: "App Router rocks", body: "Second post" },
-    { id: "3", title: "Zod is great", body: "Third post" }
-];
-
 export const appRouter = createTRPCRouter({
-    hello: baseProcedure
-        .input(z.object({ name: z.string().min(1) }))
-        .query(({ input }) => ({ greeting: `Hello, ${input.name}!` })),
+    courses: baseProcedure.output(courseListings).query(async () => {
+        const { data, error } = await supabaseAdmin
+            .from("courses")
+            .select(
+                "id, title, description,  price, sale_price, url, status, created_at, updated_at, author:users(id, first_name, last_name) "
+            )
+            .in("status", active_published_statuses);
 
-    listPosts: baseProcedure.query(() => POSTS),
-
-    getPost: baseProcedure.input(z.object({ id: z.string() })).query(({ input }) => {
-        const post = POSTS.find((p) => p.id === input.id);
-
-        if (!post) {
-            return { post: null, error: `Post ${input.id} may have been deleted or does not exist.` };
-            // throw new TRPCError({
-            //     code: "NOT_FOUND",
-            //     message: `Post ${input.id} not found`
-            // });
+        if (error) {
+            console.error(error.message);
+            return null;
         }
 
-        return { post, error: null };
-    })
+        return data;
+    }),
+
+    getCourse: baseProcedure
+        .output(z.object({ course: courseListing.nullable(), error: z.string().nullable() }))
+        .input(z.object({ url }))
+        .query(async ({ input }) => {
+            const { data: course, error } = await supabaseAdmin
+                .from("courses")
+                .select(
+                    "id, title, description,  price, sale_price, url, status, created_at, updated_at, author:users(id, first_name, last_name) "
+                )
+                .eq("url", input.url)
+                .in("status", active_published_statuses)
+                .single();
+
+            if (error) {
+                console.error(error.message);
+                return { course: null, error: "Course either doesn't exist or was removed." };
+            }
+
+            return { course, error: null };
+        })
 });
 
 export type AppRouter = typeof appRouter;
