@@ -19,7 +19,7 @@ export default async function CoursesPage() {
     cacheLife("minutes");
     cacheTag("/courses/");
 
-    const data = await staticCaller.courses();
+    const data = await staticCaller.getCourses();
 
     return (
         <Main>

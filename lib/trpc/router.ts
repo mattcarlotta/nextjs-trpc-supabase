@@ -5,11 +5,11 @@ import { active_published_statuses, courseListing, courseListings, updateCourseL
 import { baseProcedure, createTRPCRouter } from "./init";
 
 export const appRouter = createTRPCRouter({
-    courses: baseProcedure.output(courseListings).query(async () => {
+    getCourses: baseProcedure.output(courseListings).query(async () => {
         const { data, error } = await supabaseAdmin
             .from("courses")
             .select(
-                "id, title, description,  price, sale_price, url, status, created_at, updated_at, author:users(id, first_name, last_name) "
+                "id, title, description, price, sale_price, url, status, created_at, updated_at, author:users(id, first_name, last_name)"
             )
             .in("status", active_published_statuses)
             .order("created_at", { ascending: true });
@@ -28,7 +28,7 @@ export const appRouter = createTRPCRouter({
             const { data: course, error } = await supabaseAdmin
                 .from("courses")
                 .select(
-                    "id, title, description,  price, sale_price, url, status, created_at, updated_at, author:users(id, first_name, last_name) "
+                    "id, title, description, price, sale_price, url, status, created_at, updated_at, author:users(id, first_name, last_name)"
                 )
                 .eq("url", input.url)
                 .in("status", active_published_statuses)
@@ -57,6 +57,7 @@ export const appRouter = createTRPCRouter({
                 .update(updatedCourseDetails)
                 .eq("url", input.url)
                 .select("id, title, description, price, sale_price, url")
+                .in("status", active_published_statuses)
                 .single();
 
             if (error) {
@@ -65,7 +66,7 @@ export const appRouter = createTRPCRouter({
             }
 
             revalidateTag(`/course/${input.url}/`, "max");
-            revalidateTag(`/courses/`, "max");
+            revalidateTag("/courses/", "max");
 
             return { course, error: null };
         })
