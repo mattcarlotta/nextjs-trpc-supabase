@@ -19,13 +19,8 @@ export default function useCourseEditor({ courseURL }: UseCourseEditorProps) {
 
     const { mutate: updateCourse, isPending: isUpdatingCourse } = useMutation(
         trpc.updateCourse.mutationOptions({
-            onSuccess: async (result, updatedCourse) => {
-                if (result.error) {
-                    alert(result.error);
-                    return;
-                }
-
-                queryClient.setQueryData(trpc.getCourse.queryKey({ url: courseURL }), (old) => {
+            onSuccess: async (updatedCourse) => {
+                queryClient.setQueryData(trpc.getCourse.queryKey({ url: updatedCourse.url }), (old) => {
                     if (!old?.course) return old;
 
                     return {

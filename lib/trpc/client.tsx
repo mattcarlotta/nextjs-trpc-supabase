@@ -25,7 +25,9 @@ export function TRPCReactProvider({ children }: { children: React.ReactNode }) {
             <TRPCProvider trpcClient={trpcClient} queryClient={queryClient}>
                 {children}
             </TRPCProvider>
-            <ReactQueryDevtools initialIsOpen={false} />
+            <div className="hidden md:block">
+                <ReactQueryDevtools initialIsOpen={false} />
+            </div>
         </QueryClientProvider>
     );
 }

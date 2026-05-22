@@ -3,7 +3,7 @@ import LoadingInput from "./forms/LoadingInput";
 
 export default function CourseEditorSkeleton() {
     return (
-        <main className="flex items-center justify-center md:pt-20">
+        <main className="flex items-center justify-center md:mt-10 md:pb-20">
             <div
                 className={cn(
                     "w-full max-w-220 divide-y divide-neutral-200 border border-neutral-300 bg-white shadow-lg md:rounded-xl",

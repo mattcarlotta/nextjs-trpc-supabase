@@ -20,7 +20,7 @@ type EnrollButtonProps = {
     tabIndex?: number;
 };
 const defaultClasses =
-    "flex mt-8 w-full py-2.5 px-5 max-w-max cursor-pointer items-center justify-center rounded-lg text-center text-xl font-bold bg-amber-600 border border-transparent transition-colors shadow-md text-white hover:bg-amber-700 dark:bg-amber-700 dark:border-amber-500 dark:hover:bg-amber-600 dark:hover:border-amber-500 md:text-2xl";
+    "flex w-full py-2.5 px-5 cursor-pointer items-center justify-center rounded-lg text-center text-xl font-bold bg-amber-600 border border-transparent transition-colors shadow-md text-white hover:bg-amber-700 dark:bg-amber-700 dark:border-amber-500 dark:hover:bg-amber-600 dark:hover:border-amber-500 md:text-base";
 
 function EnrollButton({
     ariaHidden,
@@ -50,7 +50,7 @@ function EnrollButton({
                 tabIndex={tabIndex}
             >
                 <p className="flex items-center">
-                    <span>Enroll Now For&nbsp;</span>
+                    <span>Enroll For&nbsp;</span>
                     {courseOnSale && <span>{salePrice === 0 ? "Free!" : courseSalePriceWithCurrency}&nbsp;</span>}
                     <span className={cn(courseOnSale && "text-sm text-white/90 line-through")}>
                         {coursePriceWithCurrency}
@@ -91,26 +91,32 @@ export default function CourseCTAButton({ coursePrice, courseSalePrice, courseId
     return (
         <>
             <span ref={(e) => setTargetEl(e)}>
-                <EnrollButton courseId={courseId} courseListPrice={coursePrice} courseSalePrice={courseSalePrice} />
+                <EnrollButton
+                    className="mt-4"
+                    courseId={courseId}
+                    courseListPrice={coursePrice}
+                    courseSalePrice={courseSalePrice}
+                />
             </span>
             <div
                 className={cn(
-                    "bg-background border-border-light dark:border-dark-border-light fixed -bottom-px left-0 z-10 w-full border-t drop-shadow-[0_-4px_3px_rgba(0,0,0,0.20)] transition-transform duration-200 ease-in-out md:hidden",
+                    "bg-background fixed -bottom-px left-0 z-10 w-full border-t border-neutral-50 drop-shadow-[0_-4px_3px_rgba(0,0,0,0.20)] transition-transform duration-200 ease-in-out",
+                    "dark:border-neutral-600 dark:bg-neutral-900",
+                    "md:hidden",
                     hasInitialized && showMobileCTA
-                        ? "pointer-events-auto translate-y-0"
-                        : "pointer-events-none translate-y-full"
+                        ? "pointer-events-auto flex translate-y-0 items-center justify-center p-2"
+                        : "pointer-events-none hidden"
                 )}
                 inert={!showMobileCTA ? true : undefined}
             >
-                <div className="p-3">
-                    <EnrollButton
-                        ariaHidden={!showMobileCTA}
-                        courseId={courseId}
-                        courseListPrice={coursePrice}
-                        courseSalePrice={courseSalePrice}
-                        tabIndex={showMobileCTA ? undefined : -1}
-                    />
-                </div>
+                <EnrollButton
+                    ariaHidden={!showMobileCTA}
+                    className="mt-0"
+                    courseId={courseId}
+                    courseListPrice={coursePrice}
+                    courseSalePrice={courseSalePrice}
+                    tabIndex={showMobileCTA ? undefined : -1}
+                />
             </div>
         </>
     );
