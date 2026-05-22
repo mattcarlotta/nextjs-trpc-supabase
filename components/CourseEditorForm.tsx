@@ -39,14 +39,9 @@ function CourseEditor({ course }: { course: CourseListing }) {
     };
 
     const onSubmit: SubmitHandler<UpdateCourseListing> = async (data) => {
-        const price = data.price ?? 0;
-
         updateCourse({
-            title: data.title,
-            url: data.url,
-            description: data.description,
-            price: data.price,
-            sale_price: showSalePriceField && price > 0 ? data.sale_price : null
+            ...data,
+            sale_price: showSalePriceField && data.price > 0 ? data.sale_price : null
         });
     };
 
@@ -82,7 +77,7 @@ function CourseEditor({ course }: { course: CourseListing }) {
                         name="title"
                         type="text"
                         disabled={isUpdatingCourse}
-                        placeholder="Enter an eye catching title (auto-generates the Course URL Slug field below)..."
+                        placeholder="Enter an eye catching title..."
                         min={5}
                         max={256}
                         showCharactersLeft
