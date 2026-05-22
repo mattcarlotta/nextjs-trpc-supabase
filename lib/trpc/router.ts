@@ -42,7 +42,7 @@ export const appRouter = createTRPCRouter({
             return { course, error: null };
         }),
     updateCourse: baseProcedure
-        .output(z.object({ error: z.string().nullable() }))
+        .output(z.object({ course: updateCourseListing.nullable(), error: z.string().nullable() }))
         .input(updateCourseListing)
         .mutation(async ({ input }) => {
             const updatedCourseDetails = {
@@ -52,21 +52,22 @@ export const appRouter = createTRPCRouter({
                 sale_price: typeof input.sale_price === "number" ? Math.round(input.sale_price * 100) : null
             };
 
-            const { error } = await supabaseAdmin
+            const { data: course, error } = await supabaseAdmin
                 .from("courses")
                 .update(updatedCourseDetails)
                 .eq("url", input.url)
+                .select("id, title, description, price, sale_price, url")
                 .single();
 
             if (error) {
                 console.error(error.message);
-                return { error: "Course either doesn't exist or was removed." };
+                return { course: null, error: "Course either doesn't exist or was removed." };
             }
 
             revalidateTag(`/course/${input.url}/`, "max");
             revalidateTag(`/courses/`, "max");
 
-            return { error: null };
+            return { course, error: null };
         })
 });
 

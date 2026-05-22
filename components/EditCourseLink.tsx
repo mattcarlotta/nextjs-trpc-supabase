@@ -1,8 +1,15 @@
+"use client";
+
+import { useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import SVGEditIcon from "~/icons/SVGEditIcon";
+import { useTRPC } from "~/lib/trpc/client";
 import { cn } from "~/lib/tw";
 
 export default function EditCourseLink({ courseURL }: { courseURL?: string }) {
+    const trpc = useTRPC();
+    const queryClient = useQueryClient();
+
     if (!courseURL) {
         return (
             <div
@@ -20,6 +27,7 @@ export default function EditCourseLink({ courseURL }: { courseURL?: string }) {
     return (
         <Link
             href={`/course-editor/${courseURL}/`}
+            onMouseEnter={() => queryClient.prefetchQuery(trpc.getCourse.queryOptions({ url: courseURL }))}
             className={cn(
                 "flex max-w-max items-center gap-1 self-start text-sm text-neutral-500 transition-colors",
                 "hover:text-blue-600",

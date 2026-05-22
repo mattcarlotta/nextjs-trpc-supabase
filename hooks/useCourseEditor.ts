@@ -1,7 +1,7 @@
 import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useTRPC } from "~/lib/trpc/client";
-import { getQueryClient } from "~/lib/trpc/queryClient";
 
 export type UseCourseEditorProps = {
     courseURL: string;
@@ -9,7 +9,7 @@ export type UseCourseEditorProps = {
 
 export default function useCourseEditor({ courseURL }: UseCourseEditorProps) {
     const router = useRouter();
-    const queryClient = getQueryClient();
+    const queryClient = useQueryClient();
     const trpc = useTRPC();
 
     const {
@@ -19,13 +19,20 @@ export default function useCourseEditor({ courseURL }: UseCourseEditorProps) {
 
     const { mutate: updateCourse, isPending: isUpdatingCourse } = useMutation(
         trpc.updateCourse.mutationOptions({
-            onSuccess: async (result) => {
+            onSuccess: async (result, updatedCourse) => {
                 if (result.error) {
                     alert(result.error);
                     return;
                 }
 
-                await queryClient.invalidateQueries(trpc.getCourse.queryFilter({ url: courseURL }));
+                queryClient.setQueryData(trpc.getCourse.queryKey({ url: courseURL }), (old) => {
+                    if (!old?.course) return old;
+
+                    return {
+                        course: { ...old.course, ...updatedCourse },
+                        error: null
+                    };
+                });
 
                 router.push(`/course/${courseURL}/`);
             },
