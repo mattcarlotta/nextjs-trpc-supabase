@@ -9,6 +9,8 @@ import useCourseEditor from "~/hooks/useCourseEditor";
 import { cn } from "~/lib/tw";
 import { updateCourseListing } from "~/lib/zod/courses";
 import CourseEditorSkeleton from "./CourseEditorSkeleton";
+import { CourseNotFound } from "./CourseNotFound";
+import Main from "./Main";
 import Input from "./forms/Input";
 import { SwitchToggle } from "./forms/SwitchToggle";
 import { TextAreaInput } from "./forms/TextAreaInput";
@@ -141,22 +143,26 @@ function CourseEditor({ course }: { course: CourseListing }) {
 }
 
 export default function CourseEditorForm({ courseURL }: { courseURL: string }) {
-    const { course } = useCourseEditor({ courseURL });
+    const { course, isLoadingCourse, courseError } = useCourseEditor({ courseURL });
 
-    if (!course) {
+    if (isLoadingCourse) {
         return <CourseEditorSkeleton />;
     }
 
+    if (!course || courseError) {
+        return <CourseNotFound error={courseError || "Course not found"} />;
+    }
+
     return (
-        <main className="flex items-center justify-center md:mt-10 md:pb-20">
+        <Main>
             <div
                 className={cn(
-                    "w-full max-w-220 divide-y divide-neutral-200 border border-neutral-300 bg-white shadow-lg md:rounded-xl",
-                    "dark:divide-neutral-800 dark:border-neutral-800 dark:bg-neutral-900"
+                    "w-full max-w-6xl rounded-lg border border-neutral-300 bg-white shadow-lg",
+                    "dark:border-neutral-600 dark:bg-neutral-900"
                 )}
             >
                 <CourseEditor course={course} />
             </div>
-        </main>
+        </Main>
     );
 }

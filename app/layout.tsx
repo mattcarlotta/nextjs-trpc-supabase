@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { Arimo } from "next/font/google";
+import Navbar from "~/components/Navbar";
 import { description, inStaging, productionRobotsMeta, stagingRobotsMeta } from "~/lib/contants";
 import { TRPCReactProvider } from "~/lib/trpc/client";
 import { cn } from "~/lib/tw";
@@ -50,7 +51,10 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
     return (
         <html lang="en" className={cn(arimo.variable, "h-full antialiased")}>
             <body>
-                <TRPCReactProvider>{children}</TRPCReactProvider>
+                <TRPCReactProvider>
+                    <Navbar />
+                    {children}
+                </TRPCReactProvider>
             </body>
         </html>
     );

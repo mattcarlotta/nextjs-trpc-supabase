@@ -1,13 +1,14 @@
 import { cn } from "~/lib/tw";
+import Main from "./Main";
 import LoadingInput from "./forms/LoadingInput";
 
 export default function CourseEditorSkeleton() {
     return (
-        <main className="flex items-center justify-center md:mt-10 md:pb-20">
+        <Main>
             <div
                 className={cn(
-                    "w-full max-w-220 divide-y divide-neutral-200 border border-neutral-300 bg-white shadow-lg md:rounded-xl",
-                    "dark:divide-neutral-800 dark:border-neutral-800 dark:bg-neutral-900"
+                    "w-full max-w-6xl rounded-lg border border-neutral-300 bg-white shadow-lg",
+                    "dark:border-neutral-600 dark:bg-neutral-900"
                 )}
             >
                 <div className="space-y-4 p-5 pb-10 tracking-wider">
@@ -48,6 +49,6 @@ export default function CourseEditorSkeleton() {
                     </div>
                 </div>
             </div>
-        </main>
+        </Main>
     );
 }

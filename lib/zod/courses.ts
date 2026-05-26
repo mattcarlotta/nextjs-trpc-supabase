@@ -1,6 +1,6 @@
 import { z } from "zod";
+import { id } from "./shared";
 
-export const id = z.uuid();
 export const title = z.string().min(5).max(50);
 export const description = z.string().min(10).max(10000);
 export const price = z.number().nonnegative();

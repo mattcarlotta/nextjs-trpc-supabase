@@ -1,9 +1,5 @@
-import {
-    type FetchInfiniteQueryOptions,
-    type FetchQueryOptions,
-    HydrationBoundary,
-    dehydrate
-} from "@tanstack/react-query";
+import type { FetchInfiniteQueryOptions, FetchQueryOptions } from "@tanstack/react-query";
+import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { createTRPCOptionsProxy } from "@trpc/tanstack-react-query";
 import { headers } from "next/headers";
 import { cache } from "react";

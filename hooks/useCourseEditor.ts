@@ -15,7 +15,7 @@ export default function useCourseEditor({ courseURL }: UseCourseEditorProps) {
     const {
         data: { course, error: courseError },
         isLoading: isLoadingCourse
-    } = useSuspenseQuery(trpc.getCourse.queryOptions({ url: courseURL }));
+    } = useSuspenseQuery(trpc.getCourseDetailsForEditing.queryOptions({ url: courseURL }));
 
     const { mutate: updateCourse, isPending: isUpdatingCourse } = useMutation(
         trpc.updateCourse.mutationOptions({

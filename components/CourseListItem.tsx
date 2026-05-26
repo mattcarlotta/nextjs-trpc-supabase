@@ -13,7 +13,7 @@ export default function CourseListItem({ course }: { course: CourseListing }) {
     return (
         <li
             className={cn(
-                "group w-full max-w-92.5 overflow-hidden rounded-lg border border-neutral-400 bg-white drop-shadow-md md:h-100",
+                "group w-full max-w-92.5 overflow-hidden rounded-lg border border-neutral-300 bg-white drop-shadow-md md:h-100",
                 "focus-within:border-blue-700 focus-within:drop-shadow-xl/30 hover:border-blue-700 hover:drop-shadow-xl/30",
                 "dark:border-neutral-600 dark:bg-neutral-800"
             )}
@@ -25,7 +25,7 @@ export default function CourseListItem({ course }: { course: CourseListing }) {
                 >
                     <div
                         aria-hidden
-                        className="flex h-48 w-full flex-col items-center justify-center border-b border-neutral-400 text-neutral-400 dark:border-neutral-600 dark:bg-neutral-900 dark:text-neutral-400"
+                        className="flex h-48 w-full flex-col items-center justify-center border-b border-neutral-300 text-neutral-400 dark:border-neutral-600 dark:bg-neutral-900 dark:text-neutral-400"
                     >
                         <SVGVideoPlayerIcon className="h-25 w-25" />
                         <p className="text-lg">Missing Video Thumbnail</p>
@@ -53,7 +53,7 @@ export default function CourseListItem({ course }: { course: CourseListing }) {
                     <div
                         aria-hidden
                         className={cn(
-                            "flex h-11 w-full items-center justify-center border-t border-neutral-400 bg-blue-500 text-lg font-semibold text-white dark:border-neutral-600 dark:bg-blue-600",
+                            "flex h-11 w-full items-center justify-center border-t border-neutral-300 bg-blue-500 text-lg font-semibold text-white dark:border-neutral-600 dark:bg-blue-600",
                             "p3 group-focus-within:bg-blue-500 group-focus-within:text-white group-hover:border-blue-500 group-hover:bg-blue-500 group-hover:text-white",
                             "group-focus-within:border-blue-500 dark:border-neutral-700"
                         )}

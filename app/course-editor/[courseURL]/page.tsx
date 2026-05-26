@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default async function CourseDetailPage({ params }: PageProps<"/course/[courseURL]">) {
     const { courseURL } = await params;
 
-    prefetch(trpc.getCourse.queryOptions({ url: courseURL }));
+    prefetch(trpc.getCourseDetailsForEditing.queryOptions({ url: courseURL }));
 
     return (
         <HydrateClient>

@@ -32,7 +32,7 @@ export default async function CoursesPage() {
                         ))}
                     </ul>
                 ) : (
-                    <div className="grid gap-y-4 rounded-lg border border-neutral-600 bg-white p-4 text-center md:p-8 dark:border-neutral-700 dark:bg-neutral-800">
+                    <div className="grid gap-y-4 rounded-lg border border-neutral-300 bg-white p-4 text-center md:p-8 dark:border-neutral-700 dark:bg-neutral-800">
                         <h2 className="text-xl md:text-2xl">We&apos;re unable to locate any courses.</h2>
                         <h3 className="md:text-lg">Great learning experiences take time to build. Check back soon!</h3>
                     </div>
