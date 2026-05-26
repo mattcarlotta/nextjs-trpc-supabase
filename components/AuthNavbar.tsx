@@ -70,8 +70,8 @@ function AvatarButton() {
             >
                 <p
                     className={cn(
-                        "flex h-40 w-40 items-center justify-center rounded-full bg-blue-500 text-6xl text-white uppercase dark:bg-blue-600",
-                        "h-10 w-10 border border-white text-sm dark:border-blue-500"
+                        "flex h-10 w-10 items-center justify-center rounded-full border border-white bg-blue-500 text-sm text-white uppercase",
+                        "dark:border-blue-500 dark:bg-blue-600"
                     )}
                 >
                     {session?.first_name?.charAt(0)}
@@ -95,7 +95,7 @@ function AvatarButton() {
                                 data-testid="nav-menu-profile"
                                 role="menuitem"
                                 className={cn(
-                                    "flex h-full flex-1 items-center space-x-2.5 rounded-lg py-2 pl-2.5",
+                                    "group flex h-full flex-1 items-center space-x-2.5 rounded-lg py-2 pl-2.5",
                                     "hover:bg-neutral-300 focus:bg-neutral-300",
                                     "dark:hover:bg-neutral-600 dark:focus:bg-neutral-500"
                                 )}
@@ -110,7 +110,15 @@ function AvatarButton() {
                                     <p className="line-clamp-1">
                                         {session?.first_name} {session?.last_name}
                                     </p>
-                                    <p className="text-xs text-neutral-500 dark:text-neutral-400">View Profile</p>
+                                    <p
+                                        className={cn(
+                                            "text-xs text-neutral-500",
+                                            "group-focus-within:text-neutral-800 group-hover:text-neutral-800",
+                                            "dark:text-neutral-400 dark:group-focus-within:text-neutral-200 dark:group-hover:text-neutral-200"
+                                        )}
+                                    >
+                                        View Profile
+                                    </p>
                                 </div>
                             </Link>
                             <SignOutButton className="p-2 text-xs" role="menuitem" />
