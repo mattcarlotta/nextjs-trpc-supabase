@@ -1,6 +1,6 @@
+import Main from "~/components/Main";
+import LoadingInput from "~/components/forms/LoadingInput";
 import { cn } from "~/lib/tw";
-import Main from "./Main";
-import LoadingInput from "./forms/LoadingInput";
 
 export default function CourseEditorSkeleton() {
     return (

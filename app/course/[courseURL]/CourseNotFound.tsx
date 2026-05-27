@@ -1,8 +1,8 @@
+import BackToCoursesLink from "~/components/BackToCoursesLink";
+import Main from "~/components/Main";
 import { cn } from "~/lib/tw";
-import BackToCoursesLink from "./BackToCoursesLink";
-import Main from "./Main";
 
-export function CourseNotFound({ error }: { error: string }) {
+export default function CourseNotFound({ error }: { error: string }) {
     return (
         <div className="flex min-h-[calc(100vh-100px)] items-center justify-center p-4">
             <div

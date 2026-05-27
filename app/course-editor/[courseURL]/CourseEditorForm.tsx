@@ -5,15 +5,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useState } from "react";
 import { FormProvider, SubmitHandler, useForm, useWatch } from "react-hook-form";
+import Main from "~/components/Main";
+import Input from "~/components/forms/Input";
+import { SwitchToggle } from "~/components/forms/SwitchToggle";
+import { TextAreaInput } from "~/components/forms/TextAreaInput";
 import useCourseEditor from "~/hooks/useCourseEditor";
 import { cn } from "~/lib/tw";
 import { updateCourseListing } from "~/lib/zod/courses";
 import CourseEditorSkeleton from "./CourseEditorSkeleton";
 import { CourseNotFound } from "./CourseNotFound";
-import Main from "./Main";
-import Input from "./forms/Input";
-import { SwitchToggle } from "./forms/SwitchToggle";
-import { TextAreaInput } from "./forms/TextAreaInput";
 
 function CourseEditor({ course }: { course: CourseListing }) {
     const [showSalePriceField, setShowSalePriceField] = useState(typeof course.sale_price === "number");

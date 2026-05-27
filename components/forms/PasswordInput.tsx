@@ -1,6 +1,6 @@
+import type { FieldValues, Path } from "react-hook-form";
 import Link from "next/link";
 import { useState } from "react";
-import { FieldValues, Path } from "react-hook-form";
 import SVGHideIcon from "~/icons/SVGHideIcon";
 import SVGShowIcon from "~/icons/SVGShowIcon";
 import Input from "./Input";
@@ -13,21 +13,17 @@ export function PasswordInput<T extends FieldValues>({ showForgotPasswordLink = 
     const [showPassword, setShowPassword] = useState(false);
     const name = "password" as Path<T>;
 
-    const handleShowPassword = () => {
-        setShowPassword((p) => !p);
-    };
-
     return (
-        <Input
+        <Input<T>
             label={
                 <div className="flex items-center justify-between">
                     <label className="flex items-center space-x-1" htmlFor="password">
                         <span>Password*</span>
                         <button
-                            aria-label={`${showPassword ? "Show" : "Hide"} password`}
-                            aria-pressed={showPassword ? "true" : "false"}
+                            aria-label={`${showPassword ? "Hide" : "Show"} password`}
+                            aria-pressed={showPassword}
                             type="button"
-                            onClick={handleShowPassword}
+                            onClick={() => setShowPassword((p) => !p)}
                             className="cursor-pointer"
                         >
                             {showPassword ? <SVGHideIcon className="h-6 w-6" /> : <SVGShowIcon className="h-6 w-6" />}

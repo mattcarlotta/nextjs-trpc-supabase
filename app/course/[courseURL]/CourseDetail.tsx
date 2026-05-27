@@ -1,13 +1,13 @@
 import type { CourseListing } from "~/lib/zod/courses";
+import BackToCoursesLink from "~/components/BackToCoursesLink";
+import Main from "~/components/Main";
 import SVGVideoPlayerIcon from "~/icons/SVGVideoPlayerIcon";
 import { cn } from "~/lib/tw";
 import { timeSince, toCustomLocaleString } from "~/utils/date";
-import BackToCoursesLink from "./BackToCoursesLink";
 import CourseCTAButton from "./CourseCTAButton";
 import EditCourseLink from "./EditCourseLink";
-import Main from "./Main";
 
-export function CourseDetail({ course }: { course: CourseListing }) {
+export default function CourseDetail({ course }: { course: CourseListing }) {
     return (
         <Main>
             <div className="w-full max-w-6xl grid-cols-1 gap-4 lg:grid lg:grid-cols-4">

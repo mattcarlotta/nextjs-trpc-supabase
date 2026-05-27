@@ -37,18 +37,6 @@ export function SwitchToggle({
 
     return (
         <div className={cn("flex items-center space-x-2 rounded-lg", className)}>
-            <div className="sr-only">
-                <label htmlFor={id}>{label}</label>
-                <input
-                    aria-hidden
-                    id={id}
-                    data-testid={id}
-                    tabIndex={-1}
-                    checked={checked}
-                    disabled={disabled}
-                    readOnly
-                />
-            </div>
             {label}
             <button
                 type="button"
@@ -56,15 +44,14 @@ export function SwitchToggle({
                 title={title || "toggle option"}
                 aria-label={ariaLabel || "toggle option"}
                 aria-checked={checked}
-                id={`${id}-button`}
-                data-testid={`${id}-button`}
+                id={id}
+                data-testid={id}
                 name={name}
                 disabled={disabled}
                 onClick={onToggleChange}
                 onKeyDown={handleKeyDown}
                 className={cn(
-                    "relative inline-flex h-6 w-11 cursor-pointer items-center rounded-full bg-gray-100 transition-colors duration-200",
-                    "dark:bg-neutral-600",
+                    "relative inline-flex h-6 w-11 cursor-pointer items-center rounded-full transition-colors duration-200",
                     "disabled:cursor-not-allowed disabled:opacity-50",
                     "focus:ring-1 focus:ring-offset-1 focus:outline-none",
                     "border border-neutral-500",

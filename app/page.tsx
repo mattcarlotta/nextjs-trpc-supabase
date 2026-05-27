@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { cacheLife, cacheTag } from "next/cache";
-import Container from "~/components/Container";
 import CourseListItem from "~/components/CourseListItem";
-import CoursesTitle from "~/components/CoursesTitle";
 import Main from "~/components/Main";
 import { staticCaller } from "~/lib/trpc/server";
 
@@ -23,8 +21,10 @@ export default async function CoursesPage() {
 
     return (
         <Main>
-            <Container>
-                <CoursesTitle />
+            <div className="grid w-full max-w-6xl gap-3 md:gap-8">
+                <h1 data-testid="page-title" className="text-2xl font-bold md:text-4xl">
+                    Courses
+                </h1>
                 {data?.length ? (
                     <ul className="grid grid-cols-1 items-center justify-center gap-y-6 sm:grid-cols-2 sm:gap-x-4 lg:grid-cols-3">
                         {data.map((course) => (
@@ -37,7 +37,7 @@ export default async function CoursesPage() {
                         <h3 className="md:text-lg">Great learning experiences take time to build. Check back soon!</h3>
                     </div>
                 )}
-            </Container>
+            </div>
         </Main>
     );
 }

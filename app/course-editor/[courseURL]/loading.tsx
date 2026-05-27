@@ -1,4 +1,4 @@
-import CourseEditorSkeleton from "~/components/CourseEditorSkeleton";
+import CourseEditorSkeleton from "./CourseEditorSkeleton";
 
 export default async function CourseEditorLoadingPage() {
     return <CourseEditorSkeleton />;

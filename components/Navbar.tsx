@@ -18,7 +18,7 @@ export default async function Navbar() {
             <div className="flex h-20 items-center justify-center border-b border-neutral-300 bg-neutral-100 dark:border-neutral-600 dark:bg-neutral-900">
                 <div className="flex w-full max-w-6xl items-center justify-between px-4 lg:px-0">
                     <Link className="hover:underline" href="/">
-                        Logo
+                        LOGO
                     </Link>
                     <AuthNavbar />
                 </div>

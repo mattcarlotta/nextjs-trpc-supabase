@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { cacheLife, cacheTag } from "next/cache";
 import { notFound } from "next/navigation";
-import { CourseDetail } from "~/components/CourseDetail";
 import { supabaseAdmin } from "~/lib/supabase/server";
 import { staticCaller } from "~/lib/trpc/server";
 import { active_published_statuses } from "~/lib/zod/courses";
+import CourseDetail from "./CourseDetail";
 
 export async function generateStaticParams() {
     const { data } = await supabaseAdmin.from("courses").select("url").in("status", active_published_statuses);

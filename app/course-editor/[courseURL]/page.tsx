@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import CourseEditor from "~/components/CourseEditorForm";
 import { HydrateClient, prefetch, trpc } from "~/lib/trpc/server";
+import CourseEditor from "./CourseEditorForm";
 
 export const metadata: Metadata = {
     title: "Course Editor",
